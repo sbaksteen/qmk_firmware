@@ -20,6 +20,7 @@
 *.o
 *.stackdump
 *.sym
+*.cache
 
 # QMK-specific
 api_data/v1

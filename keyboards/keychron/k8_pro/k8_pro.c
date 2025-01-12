@@ -61,10 +61,14 @@ static void pairing_key_timer_cb(void *arg) {
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (index == 0) {
-#ifdef INVERT_OS_SWITCH_STATE
-        default_layer_set(1UL << (!active ? 2 : 0));
+#ifdef OS_SWITCH_UNICODE
+        set_unicode_input_mode(active ? UNICODE_MODE_WINCOMPOSE : UNICODE_MODE_LINUX);
 #else
+#    ifdef INVERT_OS_SWITCH_STATE
+        default_layer_set(1UL << (!active ? 2 : 0));
+#    else
         default_layer_set(1UL << (active ? 2 : 0));
+#    endif
 #endif
     }
     dip_switch_update_user(index, active);
